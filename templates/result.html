@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultat PLU - Commune {{ insee }}</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 引入 Leaflet 样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+      #map { height: 500px; width: 100%; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Résultat PLU - Commune {{ insee }}</h1>
+        <div id="map"></div>
+        <h2>Détails des règles</h2>
+        <div class="list-group mb-4">
+            {% for rule in rules %}
+            <div class="list-group-item">
+                <strong>Zone :</strong> {{ rule.zone }} |
+                <strong>Hauteur max :</strong> {{ rule.rules.max_height }} |
+                <strong>Couverture max :</strong> {{ rule.rules.max_coverage }} |
+                <strong>Recul :</strong> {{ rule.rules.setback_distance }}
+            </div>
+            {% endfor %}
+        </div>
+        <p>
+          <a href="{{ geojson_path }}" class="btn btn-secondary" download>Télécharger le fichier GeoJSON</a>
+        </p>
+    </div>
+    <!-- 引入 Bootstrap JS（可选） -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="/static/map.js"></script>
+    <script>
+      const geojsonUrl = "{{ geojson_path }}";
+      initMap(geojsonUrl);
+    </script>
+</body>
+</html>

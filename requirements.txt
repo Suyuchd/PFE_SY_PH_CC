@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+requests
+geopandas
+shapely
+fiona
+jinja2
+aiofiles
